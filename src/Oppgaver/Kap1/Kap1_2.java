@@ -1,5 +1,8 @@
 package Oppgaver.Kap1;
 
+import Ekstremalpunkter.Ekstremalpunkter;
+
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Kap1_2 {
@@ -9,6 +12,11 @@ public class Kap1_2 {
      */
     public static void bytt(char[] c, int i, int j){
         char temp = c[i];
+        c[i] = c[j];
+        c[j] = temp;
+    }
+    public static void bytt(int[] c, int i, int j){
+        int temp = c[i];
         c[i] = c[j];
         c[j] = temp;
     }
@@ -64,11 +72,42 @@ public class Kap1_2 {
         }
         return a;
     }
-
-
-
+    //	Lag metoden public static void snu(int[] a, int v, int h). Metoden skal snu rekkefølgen på verdiene i intervallet a[v:h].
+    public static void snu(int [] a, int v, int h){
+        if(v>=h)    throw new ArrayIndexOutOfBoundsException("v må være mindre enn h");
+       while(v<h){
+           bytt(a,v++,h--);
+       }
+    }
+    // gjør det samme som over, med char
+    public static void snu(char[] a, int v, int h){
+        if(v>=h)    throw new ArrayIndexOutOfBoundsException("v må være mindre enn h");
+        while(v<h){
+            bytt(a,v++,h--);
+        }
+    }
+    // returner et array med Nest størst og størst verdi
+    public static int[] nestMaks(int[] a){
+        int maks = a[0];
+        int nmaks = Integer.MIN_VALUE;
+        for(int i = 1; i < a.length; i++){
+            if(a[i] > nmaks){
+                if(a[i] > maks){
+                    nmaks = maks;
+                    maks = a[i];
+                }
+                else{
+                    nmaks = a[i];
+                }
+            }
+        }
+        return new int []{nmaks, maks};
+    }
         public static void main(String[] args){
-            System.out.println(Arrays.toString(heleTall(3,11)));
+            int [] a = {1,2,3,4,5,6,7,8,9,10};
+
+            System.out.println(Arrays.toString(nestMaks(a)));
+
         }
 }
 

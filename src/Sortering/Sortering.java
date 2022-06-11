@@ -1,5 +1,7 @@
 package Sortering;
 
+import Ekstremalpunkter.Ekstremalpunkter;
+
 import java.util.Arrays;
 import java.util.Comparator;
 
@@ -75,9 +77,28 @@ public class Sortering {
         liste[i] = liste[j];
         liste[j] = temp;
     }
+    public static<T extends Comparable<?super T>> int minIndeks(T [] a, int fra){
+        int mindeks =fra;
+        T min = a[fra];
+        Comparator c = Comparator.naturalOrder();
+        for(int i = fra; i < a.length; i++){
+            if(c.compare(a[i], min) < 0){
+                mindeks = i;
+                min = a[i];
+            }
+        }
+        return mindeks;
+    }
+    public static<T extends Comparable<? super T>> void utvalgssortering(T[] liste){
+        Comparator c = Comparator.naturalOrder();
+        for(int i = 0; i < liste.length; i++){
+            int min = minIndeks(liste, i);
+            bytt(liste, min, i);
+        }
+    }
     public static void main(String[] args){
         Integer [] a = {4,6,1,2};
-        bubblesort(a);
+        utvalgssortering(a);
         System.out.println(Arrays.toString(a));
     }
 
