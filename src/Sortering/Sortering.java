@@ -31,11 +31,44 @@ public class Sortering {
             else return v;
         }
     }
-    public static  <T extends Comparable<? super T>> void mergesort(T[] liste){
+    private static void flett(int[] a, int[] b, int fra, int m, int til)
+    {
+        int n = m - fra;                // antall elementer i a[fra:m>
+        System.arraycopy(a,fra,b,0,n);  // kopierer a[fra:m> over i b[0:n>
 
+        int i = 0, j = m, k = fra;      // løkkevariabler og indekser
+
+        while (i < n && j < til)        // fletter b[0:n> og a[m:til> og
+        {                               // legger resultatet i a[fra:til>
+            a[k++] = b[i] <= a[j] ? b[i++] : a[j++];
+        }
+
+        while (i < n) a[k++] = b[i++];  // tar med resten av b[0:n>
+    }
+    private static void flettesortering(int[] a, int[] b, int fra, int til)
+    {
+        if (til - fra <= 1) return;   // a[fra:til> har maks ett element
+        int m = (fra + til)/2;        // midt mellom fra og til
+
+        flettesortering(a,b,fra,m);   // sorterer a[fra:m>
+        flettesortering(a,b,m,til);   // sorterer a[m:til>
+
+        if (a[m-1] > a[m]) flett(a,b,fra,m,til);  // fletter a[fra:m> og a[m:til>
+    }
+    public static void flettesortering(int[] a)
+    {
+        int[] b = Arrays.copyOf(a, a.length/2);   // en hjelpetabell for flettingen
+        flettesortering(a,b,0,a.length);          // kaller metoden over
     }
     public static  <T extends Comparable<? super T>> void bubblesort(T[] liste){
-
+        Comparator c = Comparator.naturalOrder();
+        for(int i = 0; i < liste.length; i++){
+            for(int j = 1; j < liste.length; j++) {
+                if (c.compare(liste[j - 1], liste[j]) > 0) {
+                    bytt(liste, j - 1, j);
+                }
+            }
+        }
     }
     public static  <T extends Comparable<? super T>> void bytt(T[] liste, int i, int j){
         T temp = liste[i];
@@ -43,8 +76,8 @@ public class Sortering {
         liste[j] = temp;
     }
     public static void main(String[] args){
-        String [] a = {"a", "c", "b"};
-        quicksort(a);
+        Integer [] a = {4,6,1,2};
+        bubblesort(a);
         System.out.println(Arrays.toString(a));
     }
 
