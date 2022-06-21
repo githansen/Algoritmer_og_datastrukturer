@@ -21,7 +21,20 @@ public class Kap1_5 {
         int r = a % b;            // r er resten
         return euklid(b,r);       // rekursivt kall
     }
+    public static int rekursBinsøk(int [] a , int v, int h, int verdi){
+        if(v>h) return -(v+1);
+        int m = (v+h)/2;
+        if(a[m] == verdi) return m;
+        else if(a[m] > verdi){
+            return rekursBinsøk(a,v,m-1,verdi);
+        }
+        else {
+            return rekursBinsøk(a,m+1,h,verdi);
+        }
+
+    }
     public static void main(String [] args){
-        System.out.println(kvadratsum(5));
+        int [] a = {1,2,3,4,5};
+        System.out.println( rekursBinsøk(a,0,a.length-1,1));
     }
 }
