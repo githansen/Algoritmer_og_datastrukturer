@@ -62,8 +62,10 @@ c) 2 3 1 6 5 4, d) 2 3 6 5 4 1 og e) 2 6 5 4 3 1. Finn, for hver av dem, den nes
         int [] x = {3,5,4,7,6,8,1,2,9,10};
         int sum = 0;
         for(int i = 1; i < x.length; i++){
-            if(x[i] > x[i-1]){
-                sum++;
+            for(int j = 0; j < i; j++) {
+                if (x[i] > x[j]) {
+                    sum++;
+                }
             }
         }
         return sum;
@@ -72,7 +74,7 @@ c) 2 3 1 6 5 4, d) 2 3 6 5 4 1 og e) 2 6 5 4 3 1. Finn, for hver av dem, den nes
     public static void finn(){
         int []x = {1,2,3,4,5,6,7,8,9,10};
         while(nestePermutasjon(x)){
-            if(antallinversjoner(x) == 8){
+            if(antallinversjoner(x) == 28){
                 break;
             }
         }
@@ -134,13 +136,14 @@ c) 2 3 1 6 5 4, d) 2 3 6 5 4 1 og e) 2 6 5 4 3 1. Finn, for hver av dem, den nes
         public static int antallinversjoner(int[] x){
         int sum = 0;
         for(int i = 1; i < x.length; i++){
-            if(x[i] > x[i-1])sum++;
+            for(int j = 0; j < i; j++) {
+                if (x[i] < x[j]) sum++;
+            }
         }
         return sum;
         }
     public static void main(String[] args){
-        for(int i = 0; i<50; i++) {
-            System.out.println(Arrays.toString(tilfeldig(15)));
-        }
+        int[] a = {4,3,17,10,6,20,1,11,15,8,18,9,2,7,19,13,5,14,16,12};
+        System.out.println(antallinversjoner(a));  // Utskrift: 80
     }
 }
